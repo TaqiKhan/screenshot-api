@@ -1,28 +1,14 @@
 {
   "name": "screenshot-api",
   "version": "1.0.0",
-  "description": "Simple API to take website screenshots",
+  "description": "Render-ready screenshot API using Puppeteer Core",
   "main": "index.js",
   "scripts": {
     "start": "node index.js"
   },
-  "puppeteer": {
-    "default_browser_revision": "121.0.6167.85"
-  },
   "dependencies": {
     "chrome-aws-lambda": "^10.1.0",
     "express": "^4.21.2",
-    "puppeteer-core": "^10.4.0"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/TaqiKhan/screenshot-api.git"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/TaqiKhan/screenshot-api/issues"
-  },
-  "homepage": "https://github.com/TaqiKhan/screenshot-api#readme"
+    "puppeteer-core": "10.4.0"
+  }
 }
