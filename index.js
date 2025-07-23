@@ -28,9 +28,9 @@ app.get('/screenshot', async (req, res) => {
     res.set('Content-Type', 'image/png');
     res.send(screenshot);
   } catch (error) {
-    console.error('Screenshot Error:', error.message);
-    res.status(500).send('Failed to capture screenshot');
-  }
+  console.error('Screenshot Error:', error); // <--- important line
+  res.status(500).send('Failed to capture screenshot');
+}
 });
 
 const PORT = process.env.PORT || 3000;
