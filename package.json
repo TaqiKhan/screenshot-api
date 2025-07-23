@@ -6,6 +6,11 @@
   "scripts": {
     "start": "node index.js"
   },
+
+"puppeteer": {
+  "default_browser_revision": "121.0.6167.85"
+},
+
   "dependencies": {
     "express": "^4.18.2",
     "puppeteer": "^21.3.8"
