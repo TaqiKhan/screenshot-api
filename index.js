@@ -9,14 +9,10 @@ const port = process.env.PORT || 3000;
 
 async function launchBrowser() {
   return await puppeteer.launch({
-    headless: true,
-    args: [
-      '--no-sandbox',
-      '--disable-setuid-sandbox',
-      '--disable-dev-shm-usage',
-      '--disable-gpu',
-    ],
-  });
+  headless: 'new',
+  args: ['--no-sandbox', '--disable-setuid-sandbox'],
+  executablePath: '/opt/render/.cache/puppeteer/chrome/linux-138.0.7204.168/chrome-linux64/chrome',
+});
 }
 
 app.get('/', (req, res) => {
