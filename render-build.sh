@@ -1,5 +1,8 @@
 #!/usr/bin/env bash
 
-# Install Chromium to the Puppeteer cache directory
-echo "Installing Chromium..."
+# Create the cache directory if it doesn't exist
+mkdir -p /opt/render/.cache/puppeteer
+
+# Install Chromium into Puppeteer cache
+echo "Installing Chromium for Puppeteer..."
 npx puppeteer browsers install chrome
