@@ -2,6 +2,7 @@ const express = require('express');
 const puppeteer = require('puppeteer');
 const puppeteerExtra = require('puppeteer-extra');
 const StealthPlugin = require('puppeteer-extra-plugin-stealth');
+const puppeteerBuiltin = require('puppeteer'); // Required to access the executablePath
 
 puppeteerExtra.use(StealthPlugin());
 puppeteerExtra.puppeteer = puppeteer;
@@ -12,7 +13,8 @@ const port = process.env.PORT || 3000;
 async function launchBrowser() {
   return await puppeteerExtra.launch({
     headless: 'new',
-    args: ['--no-sandbox', '--disable-setuid-sandbox']
+    args: ['--no-sandbox', '--disable-setuid-sandbox'],
+    executablePath: puppeteerBuiltin.executablePath()
   });
 }
 
