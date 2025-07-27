@@ -14,7 +14,7 @@ async function launchBrowser() {
   return await puppeteerExtra.launch({
     headless: 'new',
     args: ['--no-sandbox', '--disable-setuid-sandbox'],
-    executablePath: puppeteerBuiltin.executablePath()
+    executablePath: '/opt/render/.cache/puppeteer/chrome/linux-138.0.7204.168/chrome-linux64/chrome'
   });
 }
 
