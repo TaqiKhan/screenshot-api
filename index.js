@@ -1,18 +1,19 @@
 const express = require('express');
-const puppeteer = require('puppeteer-extra');
+const puppeteer = require('puppeteer');
+const puppeteerExtra = require('puppeteer-extra');
 const StealthPlugin = require('puppeteer-extra-plugin-stealth');
 
-puppeteer.use(StealthPlugin());
+puppeteerExtra.use(StealthPlugin());
+puppeteerExtra.puppeteer = puppeteer;
 
 const app = express();
 const port = process.env.PORT || 3000;
 
 async function launchBrowser() {
-  return await puppeteer.launch({
-  headless: 'new',
-  args: ['--no-sandbox', '--disable-setuid-sandbox'],
-  executablePath: '/opt/render/.cache/puppeteer/chrome/linux-138.0.7204.168/chrome-linux64/chrome',
-});
+  return await puppeteerExtra.launch({
+    headless: 'new',
+    args: ['--no-sandbox', '--disable-setuid-sandbox']
+  });
 }
 
 app.get('/', (req, res) => {
