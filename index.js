@@ -1,6 +1,8 @@
 const express = require('express');
-const chromium = require('chrome-aws-lambda');
-const puppeteer = require('puppeteer-core');
+const puppeteer = require('puppeteer-extra');
+const StealthPlugin = require('puppeteer-extra-plugin-stealth');
+
+puppeteer.use(StealthPlugin());
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -10,18 +12,40 @@ app.get('/', (req, res) => {
 });
 
 app.get('/screenshot', async (req, res) => {
-  const url = req.query.url;
+  let { url } = req.query;
+
   if (!url) return res.status(400).send('Missing ?url= parameter');
+
+  // Auto-fix missing protocol
+  if (!/^https?:\/\//i.test(url)) {
+    url = `http://${url}`;
+  }
 
   try {
     const browser = await puppeteer.launch({
-      args: chromium.args,
-      executablePath: await chromium.executablePath,
-      headless: chromium.headless,
+// executablePath: '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome', // macOS path
+  headless: true,
+      args: [
+        '--no-sandbox',
+        '--disable-setuid-sandbox',
+        '--disable-quic',
+        '--disable-dev-shm-usage',
+        '--disable-gpu',
+      ],
     });
 
     const page = await browser.newPage();
-    await page.goto(url, { waitUntil: 'networkidle2' });
+
+    // Optional: Set user agent and headers
+    await page.setUserAgent(
+      'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 ' +
+      '(KHTML, like Gecko) Chrome/115.0.0.0 Safari/537.36'
+    );
+    await page.setExtraHTTPHeaders({
+      'Accept-Language': 'en-US,en;q=0.9',
+    });
+
+    await page.goto(url, { waitUntil: 'networkidle2', timeout: 30000 });
 
     const screenshot = await page.screenshot({ fullPage: true });
 
