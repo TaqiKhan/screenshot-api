@@ -23,16 +23,16 @@ app.get('/screenshot', async (req, res) => {
 
   try {
     const browser = await puppeteer.launch({
-// executablePath: '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome', // macOS path
   headless: true,
-      args: [
-        '--no-sandbox',
-        '--disable-setuid-sandbox',
-        '--disable-quic',
-        '--disable-dev-shm-usage',
-        '--disable-gpu',
-      ],
-    });
+  executablePath: '/opt/render/.cache/puppeteer/chrome/linux-138.0.7204.168/chrome-linux64/chrome',
+  args: [
+    '--no-sandbox',
+    '--disable-setuid-sandbox',
+    '--disable-gpu',
+    '--disable-dev-shm-usage',
+    '--disable-quic',
+  ],
+});
 
     const page = await browser.newPage();
 
